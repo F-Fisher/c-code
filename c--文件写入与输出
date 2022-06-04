@@ -1,0 +1,43 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+
+	             //写文件//
+	
+	//--打开文件
+	FILE* pf=fopen("text1.txt", "w");
+	if (pf == NULL)
+	{
+		printf("打开失败");
+		return 0;
+	}
+	//写文件
+	fputc('a', pf);
+	fputc('b', pf);//打开文件显示ba
+	//关闭文件
+	fclose(pf);
+	pf = NULL;
+
+
+
+//打开性相对路径(上一路径)
+//fopen("..//text1.txt", "w");//..表示上一级路径；.表示这一路径
+
+	           //读文件//
+			 
+	//--打开文件
+	FILE* pf1 = fopen("text1.txt", "r");
+	if (pf1 == NULL)
+	{
+		printf("打开失败");
+		return 0;
+	}
+	//写文件
+	printf("%c",fgetc(pf1));
+	printf("%c",fgetc(pf1));//输出了ab
+	//关闭文件
+	fclose(pf1);
+	pf1 = NULL;
+	return 0;
+}
