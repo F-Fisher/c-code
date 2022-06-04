@@ -1,0 +1,24 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct A
+{
+	int a;
+	float b;
+	char c[20];
+
+};
+int main()
+{
+	struct A s = { 10,3.14,"ffisher" };
+	FILE* fp = fopen("test.txt", "w");
+	if (fp == NULL)
+	{
+		puts("文件打开失败");
+		return 0;
+	}
+	fprintf(fp, "%d %f %s", s.a, s.b, s.c);
+	fclose(fp);
+	fp = NULL;
+	puts("文件输入成功");
+	return 0;
+}
