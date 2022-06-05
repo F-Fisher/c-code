@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct S
+{
+	char name[20];
+	int age;
+	double score;
+};
+int main()
+{
+	struct S s = { "FFisher",19,100.5 };
+	struct S tmp = { 0 };
+	FILE* pf = fopen("test.txt", "wb");
+	if (pf == NULL)
+	{
+		printf("打开失败\n");
+		return 0;
+	}
+	//二进制形式写入
+	fwrite(&s, sizeof(struct S), 1, pf);
+	fclose(pf);
+	pf = NULL;
+	printf("写入成功\n");
+	//二进制形式读文件
+	pf = fopen("test.txt", "rb");
+	fread(&tmp, sizeof(struct S), 1, pf);
+	printf("%s %d %lf", s.name, s.age, s.score);
+	fclose(pf);
+	pf = NULL;
+	return 0;
+}
