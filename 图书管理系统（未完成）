@@ -1,0 +1,76 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct Book
+{
+	char name[20];
+	int page;
+	struct Book* next;
+};
+void getInput(struct Book* book)
+{
+	printf("请输入书名");
+	scanf("%s", book->name);
+	printf("请输入书籍页数");
+	scanf("%d", &book->page);
+
+}
+void addBook(struct Book** library)
+{
+	struct Book* book;
+	book = (struct Book*)malloc(sizeof(struct Book));
+	if (book == NULL)
+	{
+		printf("内存分配失败");
+		exit(1);
+	}
+	getInput(&book);
+	if (*library != NULL)
+	{
+		struct Book* tmp;
+		tmp = *library;
+		*library = book;
+		book->next = tmp;
+	}
+	else
+	{
+		*library = book;
+		book->next = NULL;
+	}
+}
+void meun()
+{
+	printf("***********************\n");
+	printf("*     1 添加书籍      *\n");
+	printf("*     2 查找书籍      *\n");
+	printf("*     3 删除书籍      *\n");
+	printf("*     4 清空书籍      *\n");
+	printf("*     5 退出程序      *\n");
+	printf("***********************");
+	return 0;
+}
+int main()
+{
+	struct Book* library = NULL;
+	while (1)
+	{
+		int a;
+		meun();
+		printf("请选择功能");
+		scanf("%d", &a);
+		switch (a)
+		{
+		case 1://添加书籍
+
+			break;
+		case 2://查找书籍
+			break;
+		case 3://删除书籍
+			break;
+		case 4://清空书籍
+			break;
+		case 5://退出程序
+			break;
+		}
+	}
+	return 0;
+}
