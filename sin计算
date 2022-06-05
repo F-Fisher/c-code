@@ -1,0 +1,50 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#define P 3.14
+int main()
+{
+	double z[100]={0};
+	double x[100]={0};
+	FILE* pf = fopen("test.txt", "wb");
+	if (pf == NULL)
+	{
+		printf("文件打开失败");
+		return 0;
+	}
+	for (int i = 0; i < 100; i++)
+	{
+		z[i] = sin(( P * i * 2) / 100.0);
+	}
+	for (int i = 0; i < 100; i++)
+	{
+		x[i] = (P * i * 2) / 100.0;
+	}
+	fwrite(&z, sizeof(double), 100, pf);
+	fclose(pf);
+	double a;
+	printf("请输入一个数\n");
+	int i = 0;
+	while (1)
+	{
+		scanf_s("%lf", &a);
+		for (i = 0; i < 100; i++)
+		{
+			if (a == x[i])
+			{
+				printf("%lf", z[i]);
+			}
+			if (a > x[i] && a < x[i + 1])
+			{
+				printf("sin(%lf) = %lf\n", a,(z[i] + (((a - x[i]) / (x[i + 1] - x[i])) * (z[i + 1] - z[i]))));
+			}
+			if (a > 2 * P)
+			{
+				printf("error\n");
+				break;
+			}
+		}
+
+	}
+	return 0;
+}
