@@ -1,0 +1,35 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct B
+{
+	char a[30];
+	char b[30];
+	char c[30];
+
+};
+int main()
+{
+	//读入
+	struct B s={0,0,0};
+	FILE* fp = fopen("t2.txt", "r");
+	if (fp == NULL)
+	{
+		puts("文件打开失败");
+		return 0;
+	}
+	fscanf(fp, "%s %s %[^\n]", s.a, s.b, s.c);
+	puts("文件输入成功");
+	fclose(fp);
+	fp = NULL;
+	//写入文件
+	FILE* fp1 = fopen("t1.txt", "a");
+	if (fp1 == NULL)
+	{
+		puts("文件打开失败");
+		return 0;
+	}
+	fprintf(fp1, "\n%s\n%s\n%s", s.a, s.b, s.c);
+	fclose(fp1);
+	fp1 = NULL;
+	return 0;
+}
