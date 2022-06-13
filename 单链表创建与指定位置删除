@@ -1,0 +1,78 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct Node 
+{
+	int date;
+	struct Node* next;
+
+};
+struct Node* createList()
+{
+	struct Node* headNode = (struct Node*) malloc(sizeof(struct Node));
+	headNode->next = NULL;
+	return headNode;
+}
+struct Node* createNode(int date)
+{
+	struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+	newNode->date = date;
+	newNode->next = NULL;
+	return newNode;
+}
+void printList(struct Node* headNode)
+{
+	struct Node* pMove = headNode->next;
+	while (pMove)
+	{
+
+		printf("%d", pMove->date);
+		pMove = pMove->next;
+	}
+	printf("\n");
+
+}
+void insertNodeByHead(struct Node* headNode,int date)
+{
+	struct Node* newNode = createNode(date);
+	newNode->next = headNode->next;
+	headNode->next = newNode;
+
+}
+void deleteNodeByAppoin(struct Node*headNode,int posDate)
+{
+	struct Node* posNode = headNode->next;
+	struct Node* posNodeFront = headNode;
+	if (posNode == NULL)
+	{
+		printf("列表为空\n");
+	}
+	else
+	{
+		while (posNode->date != posDate)
+		{
+			posNodeFront = posNode;
+			posNode = posNode->next;
+			if (posNode == NULL)
+			{
+				printf("没有找到相关信息");
+				return;
+			}
+		}
+		posNodeFront->next = posNode->next;
+		free(posNode);
+	}
+
+
+}
+int main()
+{
+	struct Node* list = createList();
+	insertNodeByHead(list, 1);
+	insertNodeByHead(list, 2);
+	insertNodeByHead(list, 3);
+	insertNodeByHead(list, 4);
+	printList(list);
+	deleteNodeByAppoin(list, 2);
+	printList(list);
+	system("pause");
+}
