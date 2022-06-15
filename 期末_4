@@ -1,0 +1,41 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct S
+{
+	int a;
+	char b;
+};
+int main()
+{
+	char ch[20];
+	char b[20];
+	char c[20];
+	int d;
+	char f;
+	FILE* pf = fopen("test.txt", "w");
+	printf("请输入一段字符串储存到文件中\n");
+	scanf("%s", &ch);
+	fprintf(pf,"%s",ch);
+	fclose(pf);
+	pf = fopen("test.txt", "r");
+	printf("文件中的数据为\n");
+	fscanf(pf, "%s\n", &b);
+	printf("%s\n", b);
+	fclose(pf);
+	pf = fopen("test.txt", "a");
+	printf("正在以追加方式写入字符\n");
+	scanf("%s", &c);
+	fprintf(pf, "%s", c);
+	fclose(pf);
+	pf = fopen("test.txt", "w");
+	printf("正在格式化输入预定的结构体数据\n");
+	struct S s = { 1,'a'};
+	fprintf(pf, "%d %c", s.a, s.b); 
+	fclose(pf);
+	pf = fopen("test.txt", "r");
+	printf("正在格式化输出数据\n");
+	fscanf(pf, "%d %c", &d, &f);
+	printf("%d %c", d, f);
+	fclose(pf);
+	return 0;
+}
