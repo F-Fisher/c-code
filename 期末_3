@@ -1,0 +1,38 @@
+#include<stdio.h>
+#include<stdlib.h>
+union A
+{
+	char a;
+	char b[20];
+};
+int main()
+{
+	char s;
+	union A tmp[5];
+	int text[5];
+	int sz;
+	for (int i = 0; i < 5; i++)
+	{
+		printf("请输入第%d个单词", i + 1);
+		scanf("%s", tmp[i].b);
+	}
+	printf("请输入你要查找单词的首字母");
+	getchar();
+	fflush(stdin);
+	scanf("%c",&s);
+	printf("%c", s);
+	printf("下面是输入单词中以%c开头的单词\n", s);
+	for (int i = 0; i < 5; i++)
+	{
+		text[i] = (char)tmp[i].a;
+	}
+	sz = (char)s;
+	for (int i = 0; i < 5; i++)
+	{
+		if (text[i]==sz)
+		{
+			printf("%s ", tmp[i].b);
+		}
+    }
+	return 0;
+}
