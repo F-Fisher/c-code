@@ -1,0 +1,123 @@
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+#define SNAKE_NUM 500
+enum DIR//表示蛇的方向
+{
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+};
+//蛇属性 节 方向 速度  坐标
+//蛇结构体
+struct Snake
+{
+	int size;//节数
+	int dir;//方向
+	int speed;//速度
+	POINT coor[SNAKE_NUM];//坐标LONG x,LONG y最大节数
+}snake;
+//数据初始化
+void GameInit()
+{
+	//init初始化graph图形窗口
+	initgraph(640,480);
+    //一开始有三节
+	snake.size = 3;
+	snake.speed = 10;
+	snake.dir = RIGHT;
+	for (int i =0; i <snake.size; i++)
+	{
+    snake.coor[i].x = 40-10*i;
+	snake.coor[i].y = 10;
+	}
+	
+}
+//绘画
+void GameDraw()
+{
+	//双缓冲绘图
+	BeginBatchDraw();
+	//设置背景颜色
+	setbkcolor(RGB(255, 192, 203));//设置颜色
+	cleardevice();//清空绘图设备
+	//绘制蛇
+	setfillcolor(BLUE);
+	for (int i = 0; i < snake.size; i++)
+	{
+      solidcircle(snake.coor[i].x, snake.coor[i].y, 5);
+	}
+	EndBatchDraw();
+}
+//移动蛇
+void snakeMove()
+{
+	//移动是坐标改变
+	for (int i = 0; i < snake.size; i++)
+	{ 
+		switch (snake.dir)
+		{
+			case UP:
+				snake.coor[i].y--;
+			    break;
+			case DOWN:
+				snake.coor[i].y++;
+				break;
+			case LEFT:
+				snake.coor[i].x--;
+				break;
+			case RIGHT:
+				snake.coor[i].x++;
+				break;
+			default:
+				break;
+		}
+		
+	}
+}
+//通过按键改变运动方向
+void keyControl()
+{
+	//72 80 75 77
+	if (_kbhit())//判断是否按键，如果有返回真
+	{
+		switch (_getch())//
+		{
+		case'w':
+		case'W':
+		case'72':
+			snake.dir = UP;
+			break;
+		case's':
+		case'S':
+		case'80':
+			snake.dir = DOWN;
+			break;
+		case'a':
+		case'A':
+		case'75':
+			snake.dir = LEFT;
+			break;
+		case'd':
+		case'D':
+		case'77':
+			snake.dir = RIGHT;
+			break;
+		}
+	}
+}
+int main()
+{
+	GameInit();
+	GameDraw();
+
+	while (1)
+	{
+		GameDraw();
+		snakeMove();
+		keyControl();
+		Sleep(20);
+	}
+	return 0;
+}
