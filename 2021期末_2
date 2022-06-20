@@ -1,0 +1,41 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct NODE
+{
+	int number;//当前节点编号
+	struct NODE* next;
+};
+struct NODE* create(struct NODE*head)
+{
+	int i = 1;
+	do
+	{
+		struct NODE* tmp = (struct NODE*)malloc(sizeof(struct NODE));
+		printf("请输入\n");
+		scanf("%d", &tmp->number);
+		printf("输入成功");
+		tmp->next= head;
+		head = tmp;
+		printf("是否继续输入 1/0             ->");
+		scanf("%d", &i);
+	} while (i == 1);
+	return head;
+}
+
+
+void putout(struct NODE* head)
+{
+	while (head != NULL)
+	{
+		printf("%d", head->number);
+		head = head->next;
+	}
+	return ;
+}
+void main()
+{
+	struct NODE* head;
+	head = NULL;
+	head = create(head);
+	putout(head);
+}
