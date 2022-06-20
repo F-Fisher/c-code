@@ -1,0 +1,90 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define N 100000
+struct Person
+{
+	unsigned char num;
+	char name[40];
+	char sex;
+	int age;
+	char pnum[24];
+	char phone[16];
+	float money;
+};
+ struct Person* SetInformation()
+{
+	struct Person *list = (struct Person*)malloc(sizeof(struct Person));
+	printf("编号\n");
+	scanf("%d", &list->num);
+	printf("姓名\n");
+	scanf("%s", &list->name);
+	getchar();
+	do
+	{
+		printf("性别 m/f\n");
+		scanf("%c", &list->sex);
+	} while (list->sex != 'm' && list->sex != 'f');
+	printf("年龄\n");
+	scanf("%d", &list->age);
+	printf("身份证号\n");
+	scanf("%s", &list->pnum);
+	printf("电话\n");
+	scanf("%s", &list->phone);
+	printf("话费\n");
+	scanf("%f", &list->money);
+	return list;
+}
+ void OutMan(struct Person* list)
+ {
+	 printf("编号    %d\n",list->num);
+	 printf("姓名    %s\n",list->name);
+	 printf("性别    %c   m-男   f-女\n",list->sex);
+	 printf("年龄    %d\n",list->age);
+	 printf("身份证号%s\n",list->pnum);
+	 printf("话费    %f\n",list->money);
+ }
+int main()
+{
+	struct Person *list[N];
+	int b = 0;
+	while (1)
+	{
+		int a;
+		system("cls");
+		printf("*********************\n");
+		printf("*   1  输入信息     *\n");
+		printf("*   2  输出男       *\n");
+		printf("*   3  花费总和     *\n");
+		printf("*********************\n");
+		printf("请输入选项\n");
+		scanf("%d", &a);
+		switch (a)
+		{
+		case 1:
+			list[b] = SetInformation();
+			b++; 
+			break;
+		case 2:
+			for (int c = 0; c < b; c++)
+			{
+				if (list[c]->sex == 'm')
+				{
+					OutMan(list[c]);
+				}
+			}
+			system("pause");
+			break;
+		case 3:
+		{
+			float d = 0;
+			for (int c = 0; c > b; b++)
+			{
+				d = list[c]->money + d;
+			}
+			printf("%lf", d);
+			break;
+		}
+		}
+	}
+	return 0;
+}
